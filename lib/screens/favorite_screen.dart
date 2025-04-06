@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/constants/my_app_colors.dart';
 import 'package:movies_app/constants/my_app_icons.dart';
+import 'package:movies_app/widgets/movies/movies_widget.dart';
 
 class FavoriteMoviesScreen extends StatelessWidget {
   const FavoriteMoviesScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,15 +18,11 @@ class FavoriteMoviesScreen extends StatelessWidget {
           ),
         ],
       ),
-
       body: Center(
         child: ListView.builder(
-          itemCount: 1,
-          // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
+          itemCount: 5,
           itemBuilder: (BuildContext, index) {
-            return null;
-
-            // return MoviesWidget(movie: null,);
+            return MoviesWidget();
           },
         ),
       ),

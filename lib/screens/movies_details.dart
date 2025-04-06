@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/constants/my_app_constants.dart';
 import 'package:movies_app/constants/my_app_icons.dart';
-import 'package:movies_app/model/movies_model.dart';
 import 'package:movies_app/widgets/cashed_image.dart';
 import 'package:movies_app/widgets/movies/generes_list_widget.dart';
 
 class MoviesDetails extends StatelessWidget {
-  const MoviesDetails({super.key, required this.movieModel});
-  final MovieModel movieModel;
+  const MoviesDetails({super.key});
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.sizeOf(context);
@@ -14,33 +13,23 @@ class MoviesDetails extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            Hero(
-              tag: movieModel.id,
-              child: CashedImage(
-                imgHeight: size.height * .7,
-                imgWidth: size.width,
-                imgUrl:
-                    "https://image.tmdb.org/t/p/w500/${movieModel.posterPath}",
-                radiosImg: 0,
-              ),
+            CashedImage(
+              imgHeight: size.height * .7,
+              imgWidth: size.width,
+              imgUrl: MyAppConstants.imgUrl,
+              radiosImg: 0,
             ),
-
-            InkWell(
-              onTap: () => Navigator.of(context).pop(),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  width: 35,
-                  height: 35,
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 236, 236, 236),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: MyAppIcons.bakcArrow,
+            Positioned(
+              top: 5,
+              left: 5,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).cardColor,
+                  borderRadius: BorderRadius.circular(12),
                 ),
+                child: const BackButton(),
               ),
             ),
-
             SingleChildScrollView(
               child: Column(
                 children: [
@@ -59,7 +48,7 @@ class MoviesDetails extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  movieModel.originalTitle,
+                                  "movieModel.originalTitle",
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.bold,
@@ -73,14 +62,14 @@ class MoviesDetails extends StatelessWidget {
                                       children: [
                                         MyAppIcons.star,
                                         Text(
-                                          "${movieModel.voteAverage.toStringAsFixed(1)}/10",
+                                          "5/10",
                                           style: TextStyle(fontSize: 10),
                                         ),
                                       ],
                                     ),
 
                                     Text(
-                                      movieModel.releaseDate,
+                                      "movieModel.releaseDate",
                                       style: TextStyle(
                                         color: Colors.blueGrey,
                                         fontSize: 10,
@@ -89,13 +78,10 @@ class MoviesDetails extends StatelessWidget {
                                   ],
                                 ),
                                 SizedBox(height: 15),
-                                GeneresListWidget(
-                                  sized: size.width * .8,
-                                  movieModel: movieModel,
-                                ),
+                                GeneresListWidget(sized: size.width * .8),
                                 SizedBox(height: 15),
                                 Text(
-                                  movieModel.overview,
+                                  "movieModel.overview",
                                   style: TextStyle(
                                     color: Colors.blueGrey,
                                     fontSize: 10,

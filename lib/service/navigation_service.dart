@@ -21,6 +21,12 @@ class NavigationService {
     );
   }
 
+  navigateBack(Widget widget) {
+    return navigatorKey.currentState?.pop(
+      MaterialPageRoute(builder: (context) => widget),
+    );
+  }
+
   Future<void> showDialog(
     // BuildContext? context,
     Widget widget,

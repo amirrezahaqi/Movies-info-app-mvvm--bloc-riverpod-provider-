@@ -9,25 +9,22 @@ class CashedImage extends StatelessWidget {
     this.imgWidth,
     this.imgHeight,
   });
-
   final String imgUrl;
   final double? imgWidth;
   final double? imgHeight;
   final double radiosImg;
   final BoxFit boxFit = BoxFit.cover;
-
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.sizeOf(context);
     return Padding(
-      padding: const EdgeInsets.all(5.0),
+      padding: const EdgeInsets.all(15.0),
       child: ClipRRect(
-        // استفاده از ClipRRect
-        borderRadius: BorderRadius.circular(radiosImg), // اعمال BorderRadius
+        borderRadius: BorderRadius.circular(radiosImg),
         child: CachedNetworkImage(
           imageUrl: imgUrl,
           width: imgWidth ?? size.width * 0.18,
-          height: imgHeight ?? size.height * 0.15,
+          height: imgHeight ?? size.height * 0.99,
           fit: boxFit,
         ),
       ),

@@ -14,6 +14,8 @@ dependencies:
   cached_network_image: ^3.4.1
   get_it: ^8.0.3
   shared_preferences: ^2.5.2
+  equatable: ^2.0.7
+  flutter_bloc: ^9.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

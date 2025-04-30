@@ -47,6 +47,7 @@ class MovieModel {
       voteCount: json['vote_count'],
     );
   }
+
   Map<String, dynamic> toJson() {
     return {
       'adult': adult,

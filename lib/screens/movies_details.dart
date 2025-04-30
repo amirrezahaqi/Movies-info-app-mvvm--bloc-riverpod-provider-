@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/constants/my_app_constants.dart';
 import 'package:movies_app/constants/my_app_icons.dart';
+import 'package:movies_app/model/movies_model.dart';
 import 'package:movies_app/widgets/cashed_image.dart';
+import 'package:movies_app/widgets/movies/favorite_btn.dart';
 import 'package:movies_app/widgets/movies/generes_list_widget.dart';
 
 class MoviesDetails extends StatelessWidget {
-  const MoviesDetails({super.key});
+  final MovieModel movieModel;
+
+  const MoviesDetails({super.key, required this.movieModel});
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.sizeOf(context);
@@ -16,7 +19,8 @@ class MoviesDetails extends StatelessWidget {
             CashedImage(
               imgHeight: size.height * .7,
               imgWidth: size.width,
-              imgUrl: MyAppConstants.imgUrl,
+              imgUrl:
+                  "https://image.tmdb.org/t/p/w500/${movieModel.backdropPath}",
               radiosImg: 0,
             ),
             Positioned(
@@ -39,7 +43,6 @@ class MoviesDetails extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 10),
                         child: Material(
-                          color: const Color.fromARGB(255, 236, 236, 236),
                           borderRadius: BorderRadius.circular(20),
                           child: Padding(
                             padding: const EdgeInsets.all(20),
@@ -48,7 +51,7 @@ class MoviesDetails extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "movieModel.originalTitle",
+                                  movieModel.title,
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.bold,
@@ -62,14 +65,14 @@ class MoviesDetails extends StatelessWidget {
                                       children: [
                                         MyAppIcons.star,
                                         Text(
-                                          "5/10",
+                                          "${movieModel.voteCount}/10",
                                           style: TextStyle(fontSize: 10),
                                         ),
                                       ],
                                     ),
 
                                     Text(
-                                      "movieModel.releaseDate",
+                                      movieModel.releaseDate,
                                       style: TextStyle(
                                         color: Colors.blueGrey,
                                         fontSize: 10,
@@ -78,10 +81,13 @@ class MoviesDetails extends StatelessWidget {
                                   ],
                                 ),
                                 SizedBox(height: 15),
-                                GeneresListWidget(sized: size.width * .8),
+                                GeneresListWidget(
+                                  sized: size.width * .8,
+                                  movieModel: movieModel,
+                                ),
                                 SizedBox(height: 15),
                                 Text(
-                                  "movieModel.overview",
+                                  movieModel.overview,
                                   style: TextStyle(
                                     color: Colors.blueGrey,
                                     fontSize: 10,
@@ -92,28 +98,30 @@ class MoviesDetails extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Positioned(
-                        left: 0,
-                        right: 0,
-                        top: -10,
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Container(
-                              width: 35,
-                              height: 35,
-                              decoration: BoxDecoration(
-                                color: const Color.fromARGB(255, 236, 236, 236),
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                              child: MyAppIcons.favIcon,
-                            ),
+                      Center(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).cardColor,
+                            shape: BoxShape.circle,
                           ),
+                          child: FavoriteBtn(movieModel: movieModel),
                         ),
                       ),
                     ],
                   ),
                 ],
+              ),
+            ),
+
+            Positioned(
+              top: 5,
+              left: 5,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).cardColor,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const BackButton(),
               ),
             ),
           ],

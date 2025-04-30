@@ -5,6 +5,11 @@ class MyAppIcons {
   static const Icon favIcon = Icon(Icons.favorite_border_rounded, size: 15);
   static const Icon favIconbold = Icon(Icons.favorite_sharp, size: 15);
   static const Icon darkMode = Icon(Icons.dark_mode_outlined, size: 15);
+  static const Icon lightMode = Icon(
+    Icons.light_mode_outlined,
+    size: 15,
+    color: MyAppColors.whiteColor,
+  );
   static const Icon errIcon = Icon(
     Icons.error_outlined,
     size: 25,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/constants/my_app_constants.dart';
 import 'package:movies_app/constants/my_app_icons.dart';
+import 'package:movies_app/model/movies_model.dart';
 import 'package:movies_app/screens/movies_details.dart';
 import 'package:movies_app/service/init_getit.dart';
 import 'package:movies_app/service/navigation_service.dart';
@@ -9,7 +9,8 @@ import 'package:movies_app/widgets/movies/favorite_btn.dart';
 import 'package:movies_app/widgets/movies/generes_list_widget.dart';
 
 class MoviesWidget extends StatelessWidget {
-  const MoviesWidget({super.key});
+  const MoviesWidget({super.key, required this.movieModel});
+  final MovieModel movieModel;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,10 @@ class MoviesWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 2.0),
       child: InkWell(
-        onTap: () => getIt.get<NavigationService>().navigate(MoviesDetails()),
+        onTap:
+            () => getIt.get<NavigationService>().navigate(
+              MoviesDetails(movieModel: movieModel),
+            ),
         child: SizedBox(
           height: size.height * 0.25,
           width: size.width * 0.99, // تعیین عرض SizedBox
@@ -28,7 +32,8 @@ class MoviesWidget extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: CashedImage(
-                  imgUrl: MyAppConstants.imgUrl,
+                  imgUrl:
+                      "https://image.tmdb.org/t/p/w500/${movieModel.backdropPath}",
                   radiosImg: 10,
                 ),
               ),
@@ -38,25 +43,31 @@ class MoviesWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "movieModel.originalTitle",
+                    movieModel.title,
                     style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                   ),
                   Row(
                     children: [
                       MyAppIcons.star,
-                      Text("10/10", style: TextStyle(fontSize: 10)),
+                      Text(
+                        "${movieModel.voteAverage}",
+                        style: TextStyle(fontSize: 10),
+                      ),
                     ],
                   ),
-                  GeneresListWidget(sized: size.width * 0.5),
+                  GeneresListWidget(
+                    sized: size.width * 0.5,
+                    movieModel: movieModel,
+                  ),
                   Row(
                     children: [
                       SizedBox(child: MyAppIcons.time),
                       Text(
-                        "movieModel.releaseDate",
+                        movieModel.releaseDate,
                         style: TextStyle(color: Colors.blueGrey, fontSize: 10),
                       ),
                       SizedBox(width: size.width * 0.25),
-                      FavoriteBtn(),
+                      FavoriteBtn(movieModel: movieModel),
                     ],
                   ),
                 ],
